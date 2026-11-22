@@ -1,0 +1,11 @@
+{
+  "name": "@shipped-happens/kit-ui",
+  "version": "0.0.1",
+  "description": "Shared UI kit for the Shipped Happens apps (spike)",
+  "type": "module",
+  "main": "index.js",
+  "exports": { ".": "./index.js", "./tokens.css": "./tokens.css" },
+  "files": ["index.js", "tokens.css"],
+  "license": "UNLICENSED",
+  "private": false
+}
