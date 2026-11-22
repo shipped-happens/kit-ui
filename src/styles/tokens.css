@@ -1,18 +1,19 @@
-﻿/* Design tokens. Change these per app (see DESIGN.md). Light by default, dark follows the system. */
+﻿/* Design tokens, kit v2. Same names as v1 so apps keep working; dark is now the site's warm black.
+   Light by default, dark follows the system. An app may change the accent, never the structure. */
 :root {
   --color-bg: #faf8f5;
   --color-surface: #ffffff;
   --color-text: #1c1917;
   --color-muted: #57534e;
-  --color-accent: #f59e0b; /* fills only (buttons, marks); about 2.1:1 on paper, so never for text or the focus ring */
+  --color-accent: #f59e0b; /* fills and light only (buttons, tiles, meter); about 2.1:1 on paper, so never for text or the focus ring */
   --color-accent-contrast: #14110f;
-  --color-accent-text: #b45309; /* amber for text and links on paper, 4.7:1 */
+  --color-accent-text: #b45309; /* amber for text, links and the focus ring on paper, 4.7:1 */
   --color-border: #d6d3d1;
   --color-del-bg: #fee2e2; /* removed text */
   --color-del-text: #7f1d1d;
   --color-ins-bg: #dcfce7; /* added text */
   --color-ins-text: #14532d;
-  --color-warn-bg: #fef3c7; /* risk badges */
+  --color-warn-bg: #fef3c7; /* warnings and risk badges */
   --color-warn-text: #78350f;
   --color-warn-border: #b45309;
 
@@ -25,19 +26,21 @@
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-display: ui-serif, Georgia, 'Times New Roman', serif;
+  --font-hero:
+    'Rozha One', ui-serif, Georgia, 'Times New Roman', serif; /* the brand face, one weight, headings and numerals only */
   --font-mono: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #14110f;
-    --color-surface: #1e1a17;
-    --color-text: #f5f0ea;
-    --color-muted: #b8aea4;
-    --color-accent: #f59e0b;
+    --color-bg: #100e0c; /* warm black */
+    --color-surface: #191613;
+    --color-text: #f3ebdd;
+    --color-muted: #a79b8f;
+    --color-accent: #f59e0b; /* the logo amber, unchanged */
     --color-accent-contrast: #14110f;
     --color-accent-text: #f59e0b;
-    --color-border: #3a332e;
+    --color-border: #2f2923;
     --color-del-bg: #4a1d1d;
     --color-del-text: #fecaca;
     --color-ins-bg: #14361f;
@@ -60,6 +63,7 @@ h2,
 h3 {
   font-family: var(--font-display);
   line-height: 1.15;
+  text-wrap: balance;
 }
 
 :focus-visible {
