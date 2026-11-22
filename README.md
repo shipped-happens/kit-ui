@@ -1,18 +1,18 @@
 # kit-ui
 
-Shared UI for the Shipped Happens apps. Public so any app repo can install it without a token. All rights reserved for now: no licence is granted yet (one will be chosen before others are invited to reuse it).
+Shared UI for the Shipped Happens apps. Public so any app repo can install it without a token. All rights reserved for now: no licence is granted yet (one will be chosen before others are invited to reuse it). The Rozha One font file in `src/fonts` is under its own open licence (`src/fonts/OFL.txt`).
 
 ## Versions
 | Version | For | What it is |
 |---|---|---|
-| **v1** | apps 001 to 005 | Extracted from what those apps already repeat: design tokens, the Tailwind theme, header, footer, error and status banners, buttons, the copy-status note. The look is the same as today. |
-| **v2** (not built yet) | apps 006 to 010 and later | v1 plus the glass look from shippedhappens.org: Rozha One heading, stage light, glass panels, workspace layouts. See the App Shell v2 spec in the Shipped Happens notes. |
+| **v1.0.0** (tag) | apps 001 to 005 | The parts those apps already repeated: tokens, Tailwind theme, header, footer, banners, buttons. The look is the old flat one. Frozen. |
+| **v2.0.0** (`main`) | apps 006 to 010 and later | v1's tokens plus the glass and light look of shippedhappens.org: the app shell, two workspace layouts and the parts below. Breaking: `AppHeader` is replaced by `AppShell` and `PageTitle`; buttons are pills. |
 
 ## Install
 Pin a tag. No token is needed because the repo is public.
 
 ```
-pnpm add git+https://github.com/shipped-happens/kit-ui.git#v1.0.0
+pnpm add git+https://github.com/shipped-happens/kit-ui.git#v2.0.0
 ```
 
 In the app's `src/index.css`:
@@ -21,26 +21,40 @@ In the app's `src/index.css`:
 @import 'tailwindcss';
 @import '@shipped-happens/kit-ui/theme.css';
 @import '@shipped-happens/kit-ui/tokens.css';
+@import '@shipped-happens/kit-ui/v2.css';
 @source '../node_modules/@shipped-happens/kit-ui/src';
 ```
 
-Then:
+The package ships TypeScript source (no build step). The `@source` line is needed so Tailwind generates the classes the components use. Serve the SH mark from the app (for example `public/mark.png`) and pass it as `markSrc`; the kit holds no logo files.
 
+## Use
 ```tsx
-import { AppHeader, AppFooter, ErrorBanner, StatusBanner, Button, CopyStatus } from '@shipped-happens/kit-ui'
+import { AppShell, PageTitle, ResultSettings, DropZone, SettingsPanel, Segmented, Slider, Button } from '@shipped-happens/kit-ui'
+
+<AppShell markSrc="/mark.png">
+  <PageTitle name="Image Shrink" description="Make a photo small enough for the form." category="Media" />
+  <ResultSettings results={...} settings={<SettingsPanel action={<Button variant="primary">Shrink</Button>}>...</SettingsPanel>} />
+</AppShell>
 ```
 
-The package ships TypeScript source (no build step). The `@source` line is needed so Tailwind generates the classes the components use.
+**Shell:** `AppShell` (stage light, glass header, one column, footer, skip link), `ShellHeader`, `AppFooter` (the promise line, Privacy, Terms, "Made by Shipped Happens"), `PageTitle` (the one h1), `Panel`.
+**Layouts:** `TwoPane` (input left, result right, for text tools) and `ResultSettings` (results left, settings right; settings first on a phone, for image, QR and file tools). A form app uses `Panel`, `Field` and `DocumentPreview`.
+**Parts:** `Button`, `StatusPill`, `ErrorBanner`, `StatusBanner`, `CopyStatus`, `DropZone`, `SettingsPanel`, `Segmented`, `Slider`, `Meter`, `BlankResult`, `BeforeAfter`, `ResultList`, `ResultRow`, `CaveatList`, `ExampleChips`, `CopyButton`, `ShareButton`, `Field`, `fieldClass`, `DocumentPreview`.
+**Helpers:** `formatBytes`, `describeSaving` (says "89% smaller" or "33% larger", never a negative number), `checkFile`, `usePageGlow`.
+
+Look at everything at once with `pnpm demo` (port 5199; `#image`, `#text`, `#form`).
 
 ## Rules
 - Nothing app-specific lives here: no product logic, no app copy, no secrets, no logo files.
+- Glass is for the header only. Content panels stay near-opaque so text keeps its contrast; a test checks every text and background pair in both themes at 4.5:1.
+- Pointer effects run only for a fine pointer and never with reduced motion. Effects are classes and files, never inline styles (the apps' CSP blocks them).
 - The browser promise is the default footer line. A server app passes its own sentence saying what is sent and when.
-- Never claim "safe" or "secure" without the caveat; a test guards the default footer line.
+- Never claim "safe" or "secure" without the caveat; a test guards the default footer line. Every tool shows a `CaveatList` near its input.
+- Known, accepted: Impeccable's detector flags the amber stage light on dark pages as a decorative halo. It is the lamp of the Lit Workbench design (see the site's `DESIGN.md`) and stays.
 
 ## Develop
 ```
 pnpm install
 pnpm lint && pnpm typecheck && pnpm test
+pnpm demo
 ```
-
-Known small difference when an app moves to v1: the JSON Beautifier's error line was not bold; the kit's `ErrorBanner` is (the other apps already use bold).

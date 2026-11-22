@@ -1,0 +1,385 @@
+/* Kit v2 shell styles: the glass and light look of shippedhappens.org, for the app shell.
+   Import after tokens.css. Everything here is a class or a file, because the apps' content security policy blocks inline styles.
+   Effects that need a pointer are driven by variables the kit's hooks set (--px, --py); nothing moves unless the visitor allows motion. */
+
+/* Brand heading face (Rozha One, OFL), self-hosted and cut down to Latin. Headings and numerals only. It has one weight: never fake a bold. */
+@font-face {
+  font-family: 'Rozha One';
+  src: url('../fonts/RozhaOne-Latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Browser surfaces: the parts nobody draws still carry the design ---------- */
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  color: var(--color-text);
+}
+html {
+  accent-color: var(--color-accent);
+  caret-color: var(--color-accent-text);
+  scrollbar-color: color-mix(in srgb, var(--color-text) 30%, transparent) transparent;
+}
+p,
+li {
+  text-wrap: pretty; /* no single word alone on the last line */
+}
+.kit-num {
+  font-variant-numeric: tabular-nums;
+}
+/* Panel and section titles use the system sans. tokens.css sets headings to the serif, and unlayered rules beat Tailwind utilities, so this is a class. */
+.kit-h {
+  font-family: var(--font-sans);
+  line-height: 1.3;
+}
+.kit-hero-face {
+  font-family: var(--font-hero);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Stage: soft amber light behind the page, drifting toward the cursor ---------- */
+.kit-stage {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.kit-stage::before,
+.kit-stage::after {
+  content: '';
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  transition: translate 700ms ease-out;
+}
+.kit-stage::before {
+  width: 46rem;
+  height: 46rem;
+  left: -12rem;
+  top: -14rem;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 32%, transparent),
+    transparent 66%
+  );
+  translate: calc(var(--px, 0.5) * 120px - 60px) calc(var(--py, 0.5) * 90px - 45px);
+}
+.kit-stage::after {
+  width: 40rem;
+  height: 40rem;
+  right: -12rem;
+  bottom: -12rem;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent-text) 22%, transparent),
+    transparent 66%
+  );
+  translate: calc(var(--px, 0.5) * -140px + 70px) calc(var(--py, 0.5) * -100px + 50px);
+}
+
+/* ---------- Glass: used for the header only. Content panels stay near-opaque so text keeps its contrast. ---------- */
+.kit-glass {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-surface) 76%, transparent),
+    color-mix(in srgb, var(--color-surface) 46%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 45%, transparent),
+    0 24px 48px -30px color-mix(in srgb, black 60%, transparent);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+
+/* ---------- Panels ---------- */
+.kit-panel {
+  background: color-mix(in srgb, var(--color-surface) 86%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow: 0 18px 36px -28px color-mix(in srgb, black 55%, transparent);
+}
+.kit-panel-quiet {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ---------- Buttons and labels: pills ---------- */
+.kit-btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0 1.4rem;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 160ms ease-out,
+    box-shadow 160ms ease-out,
+    border-color 160ms ease-out,
+    color 160ms ease-out;
+}
+.kit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.kit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+.kit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.kit-btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border: 1px solid color-mix(in srgb, var(--color-accent-text) 40%, transparent);
+}
+.kit-btn-primary:hover:not(:disabled) {
+  box-shadow: 0 10px 22px -12px color-mix(in srgb, black 50%, transparent);
+}
+.kit-btn-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid color-mix(in srgb, var(--color-text) 28%, transparent);
+}
+.kit-btn-ghost:hover:not(:disabled) {
+  border-color: var(--color-accent-text);
+  color: var(--color-accent-text);
+}
+.kit-btn-small {
+  min-height: 2.25rem;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+}
+
+.kit-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--color-accent-text) 45%, transparent);
+  border-radius: 9999px;
+  padding: 0.1rem 0.65rem;
+  font-size: 0.8125rem;
+  color: var(--color-accent-text);
+}
+.kit-status::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: currentColor;
+}
+.kit-status-soft {
+  border-color: var(--color-border);
+  color: var(--color-muted);
+}
+.kit-status-soft::before {
+  background: transparent;
+  border: 1px solid currentColor;
+}
+
+/* ---------- Drop zone ---------- */
+.kit-drop {
+  position: relative;
+  display: flex;
+  min-height: 11rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px dashed color-mix(in srgb, var(--color-text) 28%, transparent);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  transition:
+    border-color 160ms ease-out,
+    background 160ms ease-out;
+}
+.kit-drop:hover,
+.kit-drop[data-over='true'] {
+  border-color: var(--color-accent-text);
+  background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
+}
+.kit-drop:has(input:focus-visible) {
+  outline: 3px solid var(--color-accent-text);
+  outline-offset: 2px;
+}
+.kit-drop input[type='file'] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ---------- Segmented control (native radios, restyled) ---------- */
+.kit-seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: 0.25rem;
+  background: color-mix(in srgb, var(--color-text) 5%, transparent);
+}
+.kit-seg label {
+  position: relative;
+  display: flex;
+  min-height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--color-muted);
+  transition:
+    background 160ms ease-out,
+    color 160ms ease-out;
+}
+.kit-seg input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.kit-seg label:has(input:checked) {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+.kit-seg label:has(input:focus-visible) {
+  outline: 3px solid var(--color-accent-text);
+  outline-offset: 2px;
+}
+.kit-seg label:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Range slider ---------- */
+.kit-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2rem;
+  background: transparent;
+  cursor: pointer;
+}
+.kit-range::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+.kit-range::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-text) 14%, transparent);
+}
+.kit-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -0.5rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-accent-text);
+  background: var(--color-accent);
+  box-shadow: 0 4px 10px -4px color-mix(in srgb, black 55%, transparent);
+}
+.kit-range::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-accent-text);
+  background: var(--color-accent);
+}
+
+/* ---------- Progress meter: a native <progress>, so the fill needs no inline style ---------- */
+.kit-meter {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  height: 0.5rem;
+  border: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-text) 12%, transparent);
+}
+.kit-meter::-webkit-progress-bar {
+  background: transparent;
+}
+.kit-meter::-webkit-progress-value {
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #d97706, var(--color-accent));
+  transition: width 200ms ease-out;
+}
+.kit-meter::-moz-progress-bar {
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #d97706, var(--color-accent));
+}
+
+/* ---------- Blank result: the boxes a result would fill ---------- */
+.kit-blank {
+  border: 1px dashed color-mix(in srgb, var(--color-text) 24%, transparent);
+  border-radius: 0.75rem;
+}
+
+/* ---------- Motion: one authored moment (the title rises in), then only responses ---------- */
+@keyframes kit-rise {
+  from {
+    opacity: 0;
+    translate: 0 0.5em;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
+  }
+}
+@keyframes kit-drift {
+  50% {
+    transform: translate(40px, 28px) scale(1.06);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  .kit-rise {
+    animation: kit-rise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .kit-rise-2 {
+    animation-delay: 120ms;
+  }
+  .kit-stage::before {
+    animation: kit-drift 18s ease-in-out infinite;
+  }
+  .kit-stage::after {
+    animation: kit-drift 24s ease-in-out infinite reverse;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kit-btn,
+  .kit-drop,
+  .kit-seg label {
+    transition: none;
+  }
+  .kit-btn:hover:not(:disabled) {
+    transform: none;
+  }
+}

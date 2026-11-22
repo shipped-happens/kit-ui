@@ -18,4 +18,6 @@
   --color-app-warn-border: var(--color-warn-border);
   --font-app: var(--font-sans);
   --font-app-display: var(--font-display);
+  --font-app-hero: var(--font-hero);
+  --font-app-mono: var(--font-mono);
 }
