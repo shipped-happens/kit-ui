@@ -1,0 +1,21 @@
+/* Maps the design tokens to Tailwind utilities: bg-app-bg, text-app-text, bg-app-accent, border-app-border, font-app, font-app-display, and the diff and warning colours.
+   An app imports tailwindcss, then this file, then tokens.css, and adds an @source line for this package so its classes are generated. */
+@theme inline {
+  --color-app-bg: var(--color-bg);
+  --color-app-surface: var(--color-surface);
+  --color-app-text: var(--color-text);
+  --color-app-muted: var(--color-muted);
+  --color-app-accent: var(--color-accent);
+  --color-app-accent-text: var(--color-accent-text);
+  --color-app-accent-contrast: var(--color-accent-contrast);
+  --color-app-border: var(--color-border);
+  --color-app-del-bg: var(--color-del-bg);
+  --color-app-del-text: var(--color-del-text);
+  --color-app-ins-bg: var(--color-ins-bg);
+  --color-app-ins-text: var(--color-ins-text);
+  --color-app-warn-bg: var(--color-warn-bg);
+  --color-app-warn-text: var(--color-warn-text);
+  --color-app-warn-border: var(--color-warn-border);
+  --font-app: var(--font-sans);
+  --font-app-display: var(--font-display);
+}

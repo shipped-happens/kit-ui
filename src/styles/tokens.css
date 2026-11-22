@@ -1,0 +1,68 @@
+﻿/* Design tokens. Change these per app (see DESIGN.md). Light by default, dark follows the system. */
+:root {
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-text: #1c1917;
+  --color-muted: #57534e;
+  --color-accent: #f59e0b; /* fills only (buttons, marks); about 2.1:1 on paper, so never for text or the focus ring */
+  --color-accent-contrast: #14110f;
+  --color-accent-text: #b45309; /* amber for text and links on paper, 4.7:1 */
+  --color-border: #d6d3d1;
+  --color-del-bg: #fee2e2; /* removed text */
+  --color-del-text: #7f1d1d;
+  --color-ins-bg: #dcfce7; /* added text */
+  --color-ins-text: #14532d;
+  --color-warn-bg: #fef3c7; /* risk badges */
+  --color-warn-text: #78350f;
+  --color-warn-border: #b45309;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: ui-serif, Georgia, 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #14110f;
+    --color-surface: #1e1a17;
+    --color-text: #f5f0ea;
+    --color-muted: #b8aea4;
+    --color-accent: #f59e0b;
+    --color-accent-contrast: #14110f;
+    --color-accent-text: #f59e0b;
+    --color-border: #3a332e;
+    --color-del-bg: #4a1d1d;
+    --color-del-text: #fecaca;
+    --color-ins-bg: #14361f;
+    --color-ins-text: #bbf7d0;
+    --color-warn-bg: #3b2a0a;
+    --color-warn-text: #fde68a;
+    --color-warn-border: #f59e0b;
+  }
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent-text);
+  outline-offset: 2px;
+}
