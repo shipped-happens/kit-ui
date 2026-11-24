@@ -1,6 +1,8 @@
 # kit-ui
 
-Shared UI for the Shipped Happens apps. Public so any app repo can install it without a token. All rights reserved for now: no licence is granted yet (one will be chosen before others are invited to reuse it). The Rozha One font file in `src/fonts` is under its own open licence (`src/fonts/OFL.txt`).
+Shared UI for the Shipped Happens apps. Public so any app repo can install it without a token. The code is MIT licensed (`LICENSE`); third-party files are listed in `THIRD-PARTY-NOTICES.md`. The Rozha One font file in `src/fonts` stays under its own open licence (`src/fonts/OFL.txt`).
+
+**Brand assets are not licensed.** The MIT licence covers the code only. The Shipped Happens name, logo, the mascot Hap, stickers and any brand fonts keep their own terms and are not included in this licence. This repo holds no logo files; do not use the name or Hap to suggest your product is ours.
 
 ## Versions
 | Version | For | What it is |
