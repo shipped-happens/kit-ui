@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
 import {
   AppFooter,
   AppHeader,
@@ -7,6 +8,7 @@ import {
   Button,
   CopyStatus,
   ErrorBanner,
+  ShareButton,
   StatusBanner,
 } from '../index'
 
@@ -24,6 +26,11 @@ describe('AppFooter', () => {
     expect(screen.getByText(BROWSER_PROMISE)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', '/privacy/')
     expect(screen.getByRole('link', { name: 'Terms' })).toHaveAttribute('href', '/terms/')
+    expect(screen.getByRole('link', { name: 'Disclaimer' })).toHaveAttribute('href', '/disclaimer/')
+    expect(screen.getByRole('link', { name: 'Made by Shipped Happens' })).toHaveAttribute(
+      'href',
+      'https://shippedhappens.org',
+    )
   })
 
   it('lets a server app say what it sends instead', () => {
@@ -90,5 +97,17 @@ describe('CopyStatus', () => {
   it('renders an empty status region until there is something to say', () => {
     render(<CopyStatus message="" />)
     expect(screen.getByRole('status')).toBeEmptyDOMElement()
+  })
+})
+
+describe('ShareButton', () => {
+  it('copies the link when there is no share sheet', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+    Object.defineProperty(navigator, 'share', { value: undefined, configurable: true })
+    render(<ShareButton title="T" url="https://x.test/" />)
+    await userEvent.click(screen.getByRole('button', { name: 'Share this tool' }))
+    expect(writeText).toHaveBeenCalledWith('https://x.test/')
+    expect(await screen.findByText('Link copied')).toBeInTheDocument()
   })
 })
