@@ -57,11 +57,12 @@ describe('ShellHeader', () => {
 })
 
 describe('AppFooter', () => {
-  it('says the browser promise by default, links Privacy, Terms and the studio', () => {
+  it('says the browser promise by default, links Privacy, Terms, Disclaimer and the studio', () => {
     render(<AppFooter />)
     expect(screen.getByText(BROWSER_PROMISE)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', '/privacy/')
     expect(screen.getByRole('link', { name: 'Terms' })).toHaveAttribute('href', '/terms/')
+    expect(screen.getByRole('link', { name: 'Disclaimer' })).toHaveAttribute('href', '/disclaimer/')
     expect(screen.getByRole('link', { name: 'Made by Shipped Happens' })).toHaveAttribute(
       'href',
       'https://shippedhappens.org',
