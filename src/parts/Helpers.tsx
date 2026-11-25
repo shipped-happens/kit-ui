@@ -110,12 +110,13 @@ export function ShareButton({ title, url, text }: { title: string; url?: string;
     }
   }
   return (
-    <>
+    // No gap: an empty status must take no room, but stay mounted so it is announced.
+    <span className="inline-flex items-center">
       <Button small onClick={share}>
         Share
       </Button>
-      <CopyStatus message={message} />
-    </>
+      <CopyStatus message={message} className="not-empty:ml-2" />
+    </span>
   )
 }
 
