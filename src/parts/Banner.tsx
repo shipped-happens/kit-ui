@@ -41,9 +41,9 @@ export function StatusBanner({ tone, children }: StatusBannerProps) {
 }
 
 /** The small live region next to the buttons ("Copied to clipboard"). Empty text announces nothing. */
-export function CopyStatus({ message }: { message: string }) {
+export function CopyStatus({ message, className = '' }: { message: string; className?: string }) {
   return (
-    <span role="status" className="text-sm text-app-muted">
+    <span role="status" className={`text-sm text-app-muted ${className}`}>
       {message}
     </span>
   )

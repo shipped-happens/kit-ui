@@ -1,6 +1,6 @@
 {
   "name": "@shipped-happens/kit-ui",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Shared UI for the Shipped Happens apps: tokens, Tailwind theme, the v2 glass app shell and parts",
   "private": false,
   "type": "module",
