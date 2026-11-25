@@ -28,11 +28,14 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
   }
 
   return (
-    <span className="inline-flex items-center gap-2">
+    // No gap: an empty status must take no room, but stay mounted so it is announced.
+    <span className="inline-flex items-center">
       <button type="button" className={`${buttonClass} py-1`} onClick={share}>
         Share this tool
       </button>
-      <span aria-live="polite">{status}</span>
+      <span aria-live="polite" className="not-empty:ml-2">
+        {status}
+      </span>
     </span>
   )
 }
