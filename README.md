@@ -1,6 +1,6 @@
 # kit-ui
 
-Shared UI for the Shipped Happens apps. Public so any app repo can install it without a token. All rights reserved for now: no licence is granted yet (one will be chosen before others are invited to reuse it).
+Shared UI for the Shipped Happens apps. Public so any app repo can install it without a token. The code is MIT licensed (`LICENSE`); third-party notices are in `THIRD-PARTY-NOTICES.md`. **Brand assets are not licensed:** the Shipped Happens name, logo, the mascot Hap, stickers and brand fonts keep their own terms.
 
 ## Versions
 | Version | For | What it is |
