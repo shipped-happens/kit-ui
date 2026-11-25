@@ -4,7 +4,7 @@
   "description": "Shared UI for the Shipped Happens apps: tokens, Tailwind theme, the v2 glass app shell and parts",
   "private": false,
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "exports": {
     ".": "./src/index.ts",
     "./tokens.css": "./src/styles/tokens.css",
